@@ -5,12 +5,14 @@ class UserController {
 
     async registration(req, res, next) {
         try{
+            console.log(111111)
             const {email, password} = req.body;
             const userData = await userService.registration(email,password)
-            res.cookies('refreshToken', userData.refreshToken,{maxAge:30 * 24 * 60 * 60 * 1000,httpOnly:true})
+            //res.cookies('refreshToken', userData.refreshToken,{maxAge:30 * 24 * 60 * 60 * 1000,httpOnly:true})
             return res.json(userData)
         } catch (e) {
-            
+            res.status(401).json(e.message)
+            console.log(e)
         }
     }
 

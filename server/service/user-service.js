@@ -17,7 +17,7 @@ class UserService {
 
         const user = await UserModel.create({email,password:hashPassword, activationLink})
         await mailService.sendActivationMail(email,activationLink)
-
+        console.log(user)
         const userDto = new UserDto(user)
         const tokens = tokenService.generateTokens({...userDto})
         await tokenService.saveToken(userDto.id, tokens.refreshToken)
